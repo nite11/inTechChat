@@ -30,6 +30,7 @@ let conversation=[];          //to save conversation history
 let checkIn=false; //to check whether the user has entered the checkin date
 let date1="";
 let date2="";
+let storeAnswer="";
 
 server.listen(process.env.PORT || 5000, function () {
     console.log("server started at port 5000");
@@ -44,6 +45,7 @@ io.on("connection", (socket) => {
     //console.log(conversation);
     //console.log(checkIn);
     checkIn=false;
+    waitForYN=false;
     //console.log(checkIn);
 
     socket.on("disconnect", (reason) => {
@@ -68,35 +70,41 @@ io.on("connection", (socket) => {
 
         const options = {
             includeScore: true,  //shows the score of how close the entered data is to an utterance
-            ignoreLocation: true
+            ignoreLocation: true,
+            
         }
 
-        correct_utter=[]
-        //console.log(correct_utter)
-        correct_utter[0]=["",1]
+        intent=[]
+        //console.log(intent)
+        intent[0]=["",1]
 
         for (let i=0;i<utter.inputText.length;i++){
             const fuse = new Fuse(utter.inputText[i],options)
             const result = fuse.search(data)
 
-        //console.log(result)
-        if(result.length>0 && result[0].score<0.7 && result[0].score<correct_utter[correct_utter.length-1][1]){
-            correct_utter.push([result[0].item,result[0].score])
-            //console.log(correct_utter)
+        console.log(result)
+        if(result.length>0 && result[0].score<0.7 && result[0].score<intent[intent.length-1][1]){
+            intent.push([result[0].item,result[0].score])
+            //console.log(intent)
 
         }}
         //score has to be less than .50
+        
 
+        
         answer="Sorry, I do not understand what you mean." //fallback answer
 
         for (let i=0;i<utter.inputText.length;i++)
         {
             for (let j=0;j<utter.inputText[i].length;j++){
 
-                if(correct_utter[correct_utter.length-1][0]===utter.inputText[i][j]){
+                if(intent[intent.length-1][0]===utter.inputText[i][j]){
                     for (let k=0;k<reply.outputText.length;k++){
                         if(reply.outputText[k][0]===utter.inputText[i][0]){
                             answer=reply.outputText[k][1];
+                            if(utter.inputText[i][0]==="yes"){
+                                answer=storeAnswer;
+                            }
                             if(utter.inputText[i][0]==="date" && checkIn){
                                 date2=data;
                                 answer="Okay. I can book a room for you from "+date1+" to "+date2;
@@ -108,6 +116,14 @@ io.on("connection", (socket) => {
                     }}}
             }
         }
+        
+        if (intent[intent.length-1][1]>.4 && intent[intent.length-1][1]<.7){
+            storeAnswer=answer;
+            answer="Do you mean '"+ intent[intent.length-1][0]+ "'? Enter 'Yes' if this is correct. If not, please rephrase and enter.";
+            
+
+        }
+        
         conversation.push(["jarvis",answer]);
         //code end
         //answer = "I am dumb, i cannot answer to \"" + data + "\" yet";

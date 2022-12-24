@@ -7,9 +7,9 @@
     ["book a room", "That's great! Which date are you planning to arrive? Please enter only the date in mmm-dd format."],
     ["date","Great! We have a room available from "],
     ["price","The price of the room is 30 euro per night."],
-    [""]
+    ["hello","hello"],
+    ["yes","yes"]
 
 
-   ],
-  "date2": "Okay. I can book a room for you from "
+   ]
 }
