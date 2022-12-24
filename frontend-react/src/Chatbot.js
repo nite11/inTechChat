@@ -6,7 +6,8 @@ import {UserInput} from "./UserInput";
 import {MessageArea} from "./MessageArea";
 
 import {io} from "socket.io-client";
-const socket = io.connect('https://snowpalace.azurewebsites.net');
+//const socket = io.connect('https://snowpalace.azurewebsites.net');
+const socket = io.connect('http://localhost:5000');
 
 function Chatbot() {
     /*

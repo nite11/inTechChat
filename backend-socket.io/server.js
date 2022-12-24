@@ -24,8 +24,8 @@ const io = new Server(server, {
 const Fuse = require('fuse.js') //https://www.geeksforgeeks.org/fuzzy-search-in-javascript/
                                 // for approximate string matching
 
-const conversation=[];          //to save conversation history
-conversation[0]=["jarvis","Welcome to Hotel Snow Palace. I am Jarvis. How can I help you?"];
+let conversation=[];          //to save conversation history
+//conversation[0]=["jarvis","Welcome to Hotel Snow Palace. I am Jarvis. How can I help you?"];
 
 let checkIn=false; //to check whether the user has entered the checkin date
 let date1="";
@@ -39,13 +39,21 @@ app.use(express.static('public'));
 
 io.on("connection", (socket) => {
     console.log(`connect ${socket.id}`);
+    //console.log(conversation);
+    conversation=[];
+    //console.log(conversation);
+    //console.log(checkIn);
+    checkIn=false;
+    //console.log(checkIn);
 
     socket.on("disconnect", (reason) => {
         console.log(`disconnect ${socket.id} due to ${reason}`);
+        
     });
 
     socket.on("question", (data) => {
         console.log("recieved question: "+data)
+        conversation[0]=["jarvis","Welcome to Hotel Snow Palace. I am Jarvis. How can I help you?"];
         // place your bot-code here !!!
 
         conversation.push(["user",data]);
