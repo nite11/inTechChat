@@ -1,0 +1,14 @@
+{
+  "inputText":[
+
+  ["goodbye","bye","see you"],
+  ["thank you","thanks","thanks a lot"],
+  ["book a room"],
+    ["date","jan-","feb-","mar-","apr-","may-","jun-","jul-","aug-","sep-","oct-","nov-","dec-"],
+    ["price","cost"],
+    []
+
+
+
+  ]
+}

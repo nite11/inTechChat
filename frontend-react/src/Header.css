@@ -1,0 +1,41 @@
+
+.top_menu {
+    background-color: transparent;
+    width: 100%;
+
+    border: 1px solid white;
+    padding: 20px 0 25px;
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+}
+.top_menu .buttons {
+    margin: 2px 0 0 20px;
+    position: absolute;
+}
+.top_menu .buttons .button {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    color:white;
+    font-weight: bold;
+
+
+}
+.top_menu .buttons .button.close {
+    background-color: darkslategrey;
+}
+.top_menu .buttons .button.minimize {
+    background-color: darkslategrey;
+}
+.top_menu .buttons .button.maximize {
+    background-color: darkslategrey;
+}
+.top_menu .title {
+    text-align: center;
+    color: #bcbdc0;
+    font-size: 20px;
+}
