@@ -8,7 +8,9 @@
     ["date","Great! We have a room available from "],
     ["price","The price of the room is 30 euro per night."],
     ["hello","hello"],
-    ["yes","yes"]
+    ["yes","yes"],
+    ["sure","Your booking is confirmed. We will be waiting for you."],
+    []
 
 
    ]

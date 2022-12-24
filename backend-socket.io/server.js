@@ -45,7 +45,7 @@ io.on("connection", (socket) => {
     //console.log(conversation);
     //console.log(checkIn);
     checkIn=false;
-    waitForYN=false;
+    
     //console.log(checkIn);
 
     socket.on("disconnect", (reason) => {
@@ -69,9 +69,8 @@ io.on("connection", (socket) => {
        // reply["goodbye"]="Bye, take care";
 
         const options = {
-            includeScore: true,  //shows the score of how close the entered data is to an utterance
-            ignoreLocation: true,
-            
+            includeScore: true,  //shows the score of how close the entered data is to an utterance            
+            minMatchCharLength: 3
         }
 
         intent=[]
@@ -104,10 +103,12 @@ io.on("connection", (socket) => {
                             answer=reply.outputText[k][1];
                             if(utter.inputText[i][0]==="yes"){
                                 answer=storeAnswer;
+                                if(answer===""){answer="Sorry, I do not understand what you mean."}
+                                storeAnswer="";
                             }
                             if(utter.inputText[i][0]==="date" && checkIn){
                                 date2=data;
-                                answer="Okay. I can book a room for you from "+date1+" to "+date2;
+                                answer="Okay. I can book a room for you from "+date1+" to "+date2+". If you want me to do the booking, enter 'Sure'.";
                             }
                             if(utter.inputText[i][0]==="date" && !checkIn)
                             {   date1=data;
