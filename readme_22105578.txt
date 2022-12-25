@@ -1,7 +1,10 @@
 Name: Nitesh Agrawal
 student ID: 22105578
 
-Internet technologies ChatBot project:
+Internet technologies ChatBot project.
+Github link: https://github.com/nite11/inTechChat
+Azure link: https://snow.azurewebsites.net/
+
 Steps to run the project on a local machine:
 1. install express, socket.io and fuse.js using npm in the backend directory.
 2. install react-scripts using npm in the frontend directory.    
