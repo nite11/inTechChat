@@ -60,38 +60,32 @@ io.on("connection", (socket) => {
 
         conversation.push(["user",data]);
 
-      //  const utter=[];
-      //  utter[0]=["goodbye","bye","see you"];
-      //  utter[1]=["thank you","thanks"];
-
-       // const reply=[];
-        //reply["thank you"]="You're welcome";
-       // reply["goodbye"]="Bye, take care";
-
         const options = {
-            includeScore: true,  //shows the score of how close the entered data is to an utterance            
-            minMatchCharLength: 3
+            includeScore: true,  //shows the score of how close the entered data is to an intent            
+            minMatchCharLength: 3  
         }
 
-        intent=[]
-        //console.log(intent)
-        intent[0]=["",1]
+        intent=[]    // to capture the intent from the entered data by comparing against the utterances 
+                     //in the utter.json file
+        intent[0]=["",1]   //default intent is blank in case of no match with a score of 1 
+                            //(score 0 is for perfect match)
 
         for (let i=0;i<utter.inputText.length;i++){
             const fuse = new Fuse(utter.inputText[i],options)
             const result = fuse.search(data)
 
-        console.log(result)
+        //console.log(result)
         if(result.length>0 && result[0].score<0.7 && result[0].score<intent[intent.length-1][1]){
             intent.push([result[0].item,result[0].score])
             //console.log(intent)
 
-        }}
-        //score has to be less than .50
-        
+        }}     
 
         
         answer="Sorry, I do not understand what you mean." //fallback answer
+
+        //in the utter.json file, the first element in each array is the intent. The following code
+        //matches this first element with the first element in the reply.json and returns an answer accordingly
 
         for (let i=0;i<utter.inputText.length;i++)
         {
@@ -117,7 +111,7 @@ io.on("connection", (socket) => {
                     }}}
             }
         }
-        
+        //the following if statement asks user to confirm the intent in case the fuzzy match score is high
         if (intent[intent.length-1][1]>.4 && intent[intent.length-1][1]<.7){
             storeAnswer=answer;
             answer="Do you mean '"+ intent[intent.length-1][0]+ "'? Enter 'Yes' if this is correct. If not, please rephrase and enter.";
